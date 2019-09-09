@@ -1,6 +1,5 @@
 import json
 from threading import Thread
-
 import requests
 from flask import Flask
 from flask import jsonify
@@ -10,18 +9,17 @@ app = Flask(__name__)
 
 
 def post_to_snow(alert_dict):
-    if (alert_dict['state'] != 'clear'):
-        u = 'https://dev82732.service-now.com/api/now/table/x_397387_cw_alerts_alert_table'
-        username = 'admin'
-        password = 'XXX'
+    u = 'https://dev82732.service-now.com/api/now/table/x_397387_cw_alerts_alert_table'
+    username = 'admin'
+    password = 'XXX'
 
-        headers = {'Accept': 'application/json',
-                   'Content-type': 'application/json'}
+    headers = {'Accept': 'application/json',
+               'Content-type': 'application/json'}
 
-        r = requests.post(u, auth=(username, password), headers=headers, data=json.dumps(alert_dict))
+    r = requests.post(u, auth=(username, password), headers=headers, data=json.dumps(alert_dict))
 
-        if r.status_code != 201:
-            print('Web server communication error {}'.format(r.status_code))
+    if r.status_code != 201:
+        print('Web server communication error {}'.format(r.status_code))
 
 
 def my_zip(list1, list2):
@@ -44,9 +42,10 @@ def parse_alert_body(body):
             for v1 in s['values']:
                 values_list = [v for v in v1]
                 z_dict = my_zip(columns_list, values_list)
+                msg = z_dict.get('msg', 'Unknown')
                 add_dict = {'producer': s['tags']['Producer'], 'kpi_id': s['tags']['kpi_id'],
                             'level': s['tags']['level'], 'state': s['tags']['state'], 'uuid': s['tags']['UUID'],
-                            'time': z_dict['time'], 'id': z_dict['id'], 'msg': z_dict['msg']}
+                            'time': z_dict['time'], 'id': z_dict['id'], 'msg': msg}
                 results.append(add_dict)
     return results
 
@@ -57,7 +56,8 @@ def thread_waiter(alert):
     """
     results = parse_alert_body(alert)  # results is list of dicts
     for i in results:
-        post_to_snow(i)
+        if i['state'] != 'clear':
+            post_to_snow(i)
 
 
 @app.route('/health_to_snow', methods=['GET', 'POST'])

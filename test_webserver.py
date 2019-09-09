@@ -1,5 +1,4 @@
 import json
-
 import requests
 
 
@@ -77,7 +76,7 @@ if __name__ == '__main__':
                     "crit_threshold",
                     "id",
                     "kpi_stream",
-                    "msg",
+                    # "msg",
                     "sigma",
                     "warn_threshold"
                 ],
@@ -101,7 +100,7 @@ if __name__ == '__main__':
                         2,
                         "pulse_interface_rate_counters_rxrate",
                         0,
-                        "INFO : GigabitEthernet0/0/0/0 Rx Rate: 0.00 pkts/sec has returned to Usual range, Threshold: 2.00 SD. It is 0.00 std.dev away from Average.",
+                        # "INFO : GigabitEthernet0/0/0/0 Rx Rate: 0.00 pkts/sec has returned to Usual range, Threshold: 2.00 SD. It is 0.00 std.dev away from Average.",
                         0,
                         2
                     ]
