@@ -19,7 +19,7 @@ def post_to_snow(alert_dict):
 
     r = requests.post(u, auth=(username, password), headers=headers, data=json.dumps(alert_dict))
 
-    if r.status_code != 200:
+    if r.status_code != 201:
         print('Web server communication error {}'.format(r.status_code))
 
 
