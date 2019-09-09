@@ -1,5 +1,6 @@
-import requests
 import json
+
+import requests
 
 
 def test_server(u, d):
@@ -89,7 +90,7 @@ if __name__ == '__main__':
                     "interface-name": "GigabitEthernet0/0/0/0",
                     "kpi_id": "pulse_interface_rate_counters",
                     "level": "INFO",
-                    "state": "clear"
+                    "state": "down"
                 },
                 "values": [
                     [

@@ -10,17 +10,18 @@ app = Flask(__name__)
 
 
 def post_to_snow(alert_dict):
-    u = 'https://dev82732.service-now.com/api/now/table/x_397387_cw_alerts_alert_table'
-    username = 'admin'
-    password = 'XXX'
+    if (alert_dict['state'] != 'clear'):
+        u = 'https://dev82732.service-now.com/api/now/table/x_397387_cw_alerts_alert_table'
+        username = 'admin'
+        password = 'XXX'
 
-    headers = {'Accept': 'application/json',
-               'Content-type': 'application/json'}
+        headers = {'Accept': 'application/json',
+                   'Content-type': 'application/json'}
 
-    r = requests.post(u, auth=(username, password), headers=headers, data=json.dumps(alert_dict))
+        r = requests.post(u, auth=(username, password), headers=headers, data=json.dumps(alert_dict))
 
-    if r.status_code != 201:
-        print('Web server communication error {}'.format(r.status_code))
+        if r.status_code != 201:
+            print('Web server communication error {}'.format(r.status_code))
 
 
 def my_zip(list1, list2):
