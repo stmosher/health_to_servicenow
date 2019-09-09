@@ -1,10 +1,10 @@
-from flask import Flask
-from flask import request
-from flask import jsonify
-from threading import Thread
-import requests
 import json
+from threading import Thread
 
+import requests
+from flask import Flask
+from flask import jsonify
+from flask import request
 
 app = Flask(__name__)
 
@@ -45,7 +45,7 @@ def parse_alert_body(body):
                 z_dict = my_zip(columns_list, values_list)
                 add_dict = {'producer': s['tags']['Producer'], 'kpi_id': s['tags']['kpi_id'],
                             'level': s['tags']['level'], 'state': s['tags']['state'], 'uuid': s['tags']['UUID'],
-                            'time': z_dict['time'], 'id': z_dict['id']}
+                            'time': z_dict['time'], 'id': z_dict['id'], 'msg': z_dict['msg']}
                 results.append(add_dict)
     return results
 
@@ -74,4 +74,4 @@ def health_to_snow():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='127.0.0.1', port=5001, debug=True)
