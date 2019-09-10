@@ -31,6 +31,7 @@ from h_s_classes.health_insights import HealthInsights
 from h_s_classes.snow import Snow
 
 app = Flask(__name__)
+my_snow = Snow(username='admin', password='GKt12iZBsYhr', url='https://dev82732.service-now.com', api_path='/api/now/table/x_397387_cw_alerts_alert_table')
 
 
 def thread_worker(alert):
@@ -56,10 +57,9 @@ def thread_worker(alert):
     results = my_health_insights.parse_alert_body(alert)
 
     if results:
-        my_snow = Snow(username='admin', password='XXX', url='https://dev82732.service-now.com')
         for i in results:
             if i['state'] != 'clear':
-                my_snow.post(api_path='/api/now/table/x_397387_cw_alerts_alert_table', body_data=i)
+                my_snow.post(body_data=i)
     else:
         logger.warning('Unable to parse message body in POST from {ip}.'.format(ip=request.remote_addr))
         return

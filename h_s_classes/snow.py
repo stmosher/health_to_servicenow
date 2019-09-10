@@ -42,7 +42,7 @@ class Snow:
     post(api_path, body_data)
         Makes HTTP POST request to Service Now
     """
-    def __init__(self, username=None, password=None, url=None):
+    def __init__(self, username=None, password=None, url=None, api_path=None):
         """
         Parameters
         ----------
@@ -54,15 +54,13 @@ class Snow:
         self.username = username
         self.password = password
         self.url = url
+        self.api_path = api_path
 
-    def post(self, api_path, body_data):
+    def post(self, body_data):
         """HTTP POSTs body_data to Service Now at api_path
 
         Parameters
         ----------
-        api_path : str
-            path to be added to Service Now URL for complete API call
-                e.g. '/api/now/table/x_397387_cw_alerts_alert_table'
         body_data : dict
             Dictionary of key/values for body of POST to Service Now
 
@@ -73,7 +71,7 @@ class Snow:
             False: id POST failed
         """
         logger = logging.getLogger(__name__)
-        u = self.url + api_path
+        u = self.url + self.api_path
 
         headers = {'Accept': 'application/json',
                    'Content-type': 'application/json'}
