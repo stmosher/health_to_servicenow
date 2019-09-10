@@ -1,4 +1,4 @@
-# Create a Flask web server to receive data
+# Create a Flask web server to receive alerts from Crossworks Healt Insights and create a Service Now ticket
 ## Installation
 1. Clone the repository from GitHub
 2. Install application requirements:
@@ -11,3 +11,5 @@
     - data
 5. Run test_webserver.py
     - ````````python3 test_webserver.py````````
+## Pytest
+    - ````````python -m pytest -v````````
