@@ -19,15 +19,16 @@ or implied.
 
 """
 
+
 import logging
 from threading import Thread
-
-from h_s_classes.health_insights import HealthInsights
-from h_s_classes.snow import Snow
 
 from flask import Flask
 from flask import jsonify
 from flask import request
+
+from h_s_classes.health_insights import HealthInsights
+from h_s_classes.snow import Snow
 
 app = Flask(__name__)
 
