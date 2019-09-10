@@ -84,9 +84,6 @@ class Snow:
             logger.warning('Web server communication error {}'.format(r.status_code))
             logger.warning('Unable to update snow for alert {body}.'.format(body=str(body_data)))
             return False
+        else:
+            logger.info('POST successful {}'.format(r.status_code))
         return True
-
-
-if __name__ == '__main__':
-    snow_url = 'https://dev82732.service-now.com'
-    snow_api_path = '/api/now/table/x_397387_cw_alerts_alert_table'
