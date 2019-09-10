@@ -58,7 +58,7 @@ def health_to_snow():
     elif request.method == 'POST':
         data = request.json
         try:
-            if data[0]['series']['name'] == 'alerts' and data[0]['series']['tags']:
+            if data[0]['series'][0]['name'] == 'alerts' and data[0]['series'][0]['tags']:
                 Thread(target=thread_waiter, args=(data,)).start()
         except ValueError:
             logger.warning('Malformed body format in POST from {ip}. / Received body was {body}'
