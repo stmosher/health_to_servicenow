@@ -31,7 +31,10 @@ from h_s_classes.health_insights import HealthInsights
 from h_s_classes.snow import Snow
 
 app = Flask(__name__)
-my_snow = Snow(username='admin', password='GKt12iZBsYhr', url='https://dev82732.service-now.com', api_path='/api/now/table/x_397387_cw_alerts_alert_table')
+my_snow = Snow(username='admin',
+               password='GKt12iZBsYhr',
+               url='https://dev82732.service-now.com',
+               api_path='/api/now/table/x_397387_cw_alerts_alert_table')
 
 
 def thread_worker(alert):
