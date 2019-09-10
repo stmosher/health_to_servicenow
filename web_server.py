@@ -32,7 +32,7 @@ from h_s_classes.snow import Snow
 
 app = Flask(__name__)
 my_snow = Snow(username='admin',
-               password='GKt12iZBsYhr',
+               password='XXX',
                url='https://dev82732.service-now.com',
                api_path='/api/now/table/x_397387_cw_alerts_alert_table')
 
