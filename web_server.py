@@ -32,7 +32,24 @@ from flask import request
 app = Flask(__name__)
 
 
-def thread_waiter(alert):
+def thread_worker(alert):
+    """Processes alerts and creates Service Now ticket
+
+    Parameters
+    ----------
+    alert : list
+        body from incoming HTTP POST request
+
+    Logic
+    -------
+    Process alert into list of dictionaries
+    Iterate through dictionies list
+        POST ticket to Service Now per alert dictionary
+
+    Returns
+    -------
+    None
+    """
     logger = logging.getLogger(__name__)
     my_health_insights = HealthInsights()
     results = my_health_insights.parse_alert_body(alert)
@@ -50,6 +67,22 @@ def thread_waiter(alert):
 
 @app.route('/health_to_snow', methods=['GET', 'POST'])
 def health_to_snow():
+    """Flask web server receives http requests and executes worker thread if needed
+
+    Parameters
+    ----------
+    HTTP POST request
+
+    Logic
+    -------
+    if POST body match
+        Start worker thread for further action
+
+    Returns
+    -------
+    HTTP Response 200
+        Proper HTTP status code and echos payload from POST request body
+    """
     logger = logging.getLogger(__name__)
     if request.method == 'GET':
         logger.info('received a GET request from {}'.format(request.remote_addr))
@@ -59,7 +92,7 @@ def health_to_snow():
         data = request.json
         try:
             if data[0]['series'][0]['name'] == 'alerts' and data[0]['series'][0]['tags']:
-                Thread(target=thread_waiter, args=(data,)).start()
+                Thread(target=thread_worker, args=(data,)).start()
         except ValueError:
             logger.warning('Malformed body format in POST from {ip}. / Received body was {body}'
                            .format(ip=request.remote_addr, body=data))

@@ -58,7 +58,7 @@ def test_parse_alert_body(health_insights_obj):
          'uuid': '5108e98e-aea0-49a5-ba32-88db39b777c3'}]
 
 
-def test_parse_alert_body_valueerror(health_insights_obj):
+def test_parse_alert_body_value_error(health_insights_obj):
     assert health_insights_obj.parse_alert_body([{"series": [{"missing_columns": ''}]}]) is False
 
 

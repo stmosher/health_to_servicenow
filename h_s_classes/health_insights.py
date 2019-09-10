@@ -22,14 +22,35 @@ import logging
 
 
 class HealthInsights:
-    def __init__(self):
-        self.results = None
+    """
+    A class used handle POST requests from crossworks Health Insights
+
+    ...
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    parse_alert_body(body)
+        Parses Health Insights Alert messages
+    """
 
     def parse_alert_body(self, body):
-        """
-            This parses the body of the alert message, processes into simple dictionaries, and return a list
-            of dictionaries composed of the seven key, value pairs as seen in the add_dicts dictionary
-            below.
+        """Parses Health Insights Alert messages.
+
+        Parameters
+        ----------
+        body : dict
+            Converted body from Health Insights alert
+
+        Returns
+        -------
+        list
+            a list of dictionaries containing key/value pairs as
+            parsed from Health Insights alert message
+
         """
         logger = logging.getLogger(__name__)
         try:
@@ -61,6 +82,22 @@ class HealthInsights:
 
     @staticmethod
     def my_zip(list1, list2):
+        """Combines indexes from two lists into key/value pairs in a dict.
+
+        Parameters
+        ----------
+        list1 : list
+            List of future keys for dict
+
+        list2 : list
+            List of future values for dict
+
+        Returns
+        -------
+        dict
+            key/values resulting from combining list1 and list2
+
+        """
         md = dict()
         for i in list1:
             md[i] = list2[list1.index(i)]
