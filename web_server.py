@@ -33,8 +33,7 @@ from h_s_classes.snow import Snow
 app = Flask(__name__)
 
 
-
-def thread_worker(alert):
+def thread_create_ticket(alert):
     """Processes alerts and creates Service Now ticket
 
     Parameters
@@ -55,7 +54,6 @@ def thread_worker(alert):
     logger = logging.getLogger(__name__)
     my_health_insights = HealthInsights()
     results = my_health_insights.parse_alert_body(alert)
-
 
     if results:
         my_snow = Snow(username='admin',
@@ -98,7 +96,7 @@ def health_to_snow():
         data = request.json
         try:
             if data[0]['series'][0]['name'] == 'alerts' and data[0]['series'][0]['tags']:
-                Thread(target=thread_worker, args=(data,)).start()
+                Thread(target=thread_create_ticket, args=(data,)).start()
         except ValueError:
             logger.warning('Malformed body format in POST from {ip}. / Received body was {body}'
                            .format(ip=request.remote_addr, body=data))
