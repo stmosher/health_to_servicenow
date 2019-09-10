@@ -61,10 +61,10 @@ def thread_worker(alert):
         my_snow = Snow(username='admin',
                        password='GKt12iZBsYhr',
                        url='https://dev82732.service-now.com',
-                       api_path='/api/now/table/x_397387_cw_alerts_alert_table')
+                       post_ticket='/api/now/table/x_397387_cw_alerts_alert_table')
         for i in results:
             if i['state'] != 'clear':
-                my_snow.post(body_data=i)
+                my_snow.p_create_ticket(body_data=i)
     else:
         logger.warning('Unable to parse message body in POST from {ip}.'.format(ip=request.remote_addr))
         return
