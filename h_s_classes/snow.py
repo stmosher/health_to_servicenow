@@ -50,6 +50,8 @@ class Snow:
         password : str
         url: str
             The URL for Service Now
+        api_path : str
+            The path to the Service Now Application
          """
         self.username = username
         self.password = password
